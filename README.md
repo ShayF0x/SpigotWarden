@@ -3,6 +3,7 @@
 <p align="center"><i>like Warden mob in minecraft, Spigot Warden obscures what surrounds you</i></p>
 <p align="center">
     <img src="https://img.shields.io/badge/build-Ready%20to%20go-brightgreen"/>
+    <img src="https://img.shields.io/badge/dynamic/json?color=blue&label=Version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2FShayF0x%2FSpigotWarden%2Fmaster%2FSpigotWarden.json"/>
 </p>
 
 ### Why ?
