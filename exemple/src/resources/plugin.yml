@@ -1,0 +1,6 @@
+name: TestPlugin
+main: fr.shayfox.test
+version: 1.0
+author: ShayFox
+api-version: 1.19
+description: Plugin to test SpigotWarden gradle plugin

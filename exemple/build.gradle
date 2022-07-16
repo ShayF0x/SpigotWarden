@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+    id 'fr.shayfox.spigotwarden' version "1.0"
+}
+
+group 'fr.shayfox'
+version '1.0'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot:1.19-R0.1-SNAPSHOT:remapped-mojang'
+}
+
+SpigotWarden {
+    setMinecraftVersion("1.19-R0.1-SNAPSHOT")
+    setBuildOutput(file('C:/Users/ShayFox/server/plugins'))
+}
+
+sourceCompatibility = targetCompatibility = '17'
+compileJava.options.encoding = 'UTF-8'

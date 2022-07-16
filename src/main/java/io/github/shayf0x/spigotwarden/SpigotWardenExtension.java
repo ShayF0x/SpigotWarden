@@ -1,4 +1,4 @@
-package fr.shayfox.remapped;
+package io.github.shayf0x.spigotwarden;
 
 import org.gradle.api.provider.Property;
 

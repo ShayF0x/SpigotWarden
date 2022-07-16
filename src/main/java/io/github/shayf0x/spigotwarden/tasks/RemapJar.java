@@ -1,7 +1,7 @@
-package fr.shayfox.remapped.tasks;
+package io.github.shayf0x.spigotwarden.tasks;
 
-import fr.shayfox.remapped.Manager;
-import fr.shayfox.remapped.PathBank;
+import io.github.shayf0x.spigotwarden.Manager;
+import io.github.shayf0x.spigotwarden.PathBank;
 import org.gradle.internal.jvm.Jvm;
 
 import java.io.File;
@@ -16,10 +16,12 @@ public abstract class RemapJar extends Task{
     private Manager manager;
 
     /**
+     * run "setup" task before to download all files necessary and
      * run "jar" task before to generate plugin.jar
      */
     @Override
     public void load() {
+        this.dependsOn(main.getSetup());
         this.dependsOn(main.getBuildJar());
         this.manager = main.getManager();
     }
@@ -31,24 +33,18 @@ public abstract class RemapJar extends Task{
      */
     @Override
     public void execute() {
-        main.getBuildJar().get().getDestinationDirectory().fileValue(main.getExtension().getBuildOutput().get());
         final String specialSourceVersion = manager.testSpecialSource();
-        final boolean createOutput = manager.createIfNotExistBuildOutput();
-        final boolean buildToolsTest = manager.testBuildTools(main.getExtension().getMinecraftVersion().get());
-        if(!buildToolsTest){
-            System.out.println("Un fichié manque, génération du buildTools");
-            manager.cmdBuildTools(main.getExtension().getMinecraftVersion().get());
-        }
-        System.out.println("Run obfuscate");
+
+        System.out.println("\u001b[7mObfuscate\u001b[0m");
         obfuscate(specialSourceVersion);
-        System.out.println("run deobfuscate");
+        System.out.println("\u001b[7mDeObfuscate\u001b[0m");
         deObfuscate(specialSourceVersion);
     }
 
     private void obfuscate(String version){
         final Path jarBuild = main.getBuildJar().get().getArchiveFile().get().getAsFile().toPath();
         final String jarName = main.getBuildJar().get().getArchiveFileName().get().replaceAll(".jar", "");
-        final Path root = Path.of(System.getProperty("user.dir")).resolve(".gradle").resolve("remapped");
+        final Path root = Path.of(System.getProperty("user.dir")).resolve(".gradle").resolve("spigotwarden");
         final Path obfJar = root.resolve(String.format("%s-obf.jar", jarName));
         final String spigotVersion = main.getExtension().getMinecraftVersion().get();
         final Path remappedMojang = PathBank.REMAPPED_MOJANG.toPath(spigotVersion);
@@ -74,7 +70,7 @@ public abstract class RemapJar extends Task{
     private void deObfuscate(String version){
         final Path jarBuild = main.getBuildJar().get().getArchiveFile().get().getAsFile().toPath();
         final String jarName = main.getBuildJar().get().getArchiveFileName().get().replaceAll(".jar", "");
-        final Path root = Path.of(System.getProperty("user.dir")).resolve(".gradle").resolve("remapped");
+        final Path root = Path.of(System.getProperty("user.dir")).resolve(".gradle").resolve("spigotwarden");
         final Path obfJar = root.resolve(String.format("%s-obf.jar", jarName));
         final String spigotVersion = main.getExtension().getMinecraftVersion().get();
         final Path remappedObf = PathBank.REMAPPED_OBF.toPath(spigotVersion);

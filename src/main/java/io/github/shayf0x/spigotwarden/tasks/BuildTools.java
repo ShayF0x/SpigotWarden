@@ -1,4 +1,4 @@
-package fr.shayfox.remapped.tasks;
+package io.github.shayf0x.spigotwarden.tasks;
 
 /**
  * <strong>BuildTools task</strong>, his execute BuildTools.jar

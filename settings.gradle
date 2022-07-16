@@ -1,2 +1,9 @@
-rootProject.name = 'Remapper'
+pluginManagement {
+    repositories {
+        mavenLocal()
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'SpigotWarden'
 

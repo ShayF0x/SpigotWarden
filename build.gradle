@@ -1,19 +1,38 @@
 plugins {
-    id 'java'
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+    id 'com.gradle.plugin-publish' version '1.0.0-rc-3'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
-
-repositories {
+repositories{
     mavenCentral()
+    mavenLocal()
 }
+
+group 'io.github.shayf0x'
+version '1.0'
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 }
 
-test {
+tasks.withType(Test).configureEach {
     useJUnitPlatform()
+}
+
+pluginBundle {
+    website = 'https://shayf0x.github.io/'
+    vcsUrl = 'https://github.com/ShayF0x/SpigotWarden'
+    tags = ['nms', 'spigot', 'mappings']
+}
+
+gradlePlugin {
+    plugins {
+        Remapped {
+            id = 'io.github.shayf0x.spigotwarden'
+            implementationClass = 'io.github.shayf0x.spigotwarden.SpigotWarden'
+            displayName = 'SpigotWarden'
+            description = 'like Warden mob in minecraft, Spigot Warden obscures what surrounds you'
+        }
+    }
 }

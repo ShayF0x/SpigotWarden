@@ -1,6 +1,6 @@
-package fr.shayfox.remapped.tasks;
+package io.github.shayf0x.spigotwarden.tasks;
 
-import fr.shayfox.remapped.SpigotWarden;
+import io.github.shayf0x.spigotwarden.SpigotWarden;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.TaskAction;
@@ -22,6 +22,6 @@ public abstract class Task extends DefaultTask {
 
 
     public Task() {
-        this.setGroup("remapped");
+        this.setGroup("spigotwarden");
     }
 }

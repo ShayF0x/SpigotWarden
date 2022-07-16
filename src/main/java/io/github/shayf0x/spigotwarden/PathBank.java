@@ -1,4 +1,4 @@
-package fr.shayfox.remapped;
+package io.github.shayf0x.spigotwarden;
 
 import java.io.File;
 import java.nio.file.Path;

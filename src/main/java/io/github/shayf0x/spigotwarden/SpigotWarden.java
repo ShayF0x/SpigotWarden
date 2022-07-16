@@ -1,8 +1,9 @@
-package fr.shayfox.remapped;
+package io.github.shayf0x.spigotwarden;
 
-import fr.shayfox.remapped.tasks.BuildTools;
-import fr.shayfox.remapped.tasks.RemapJar;
-import fr.shayfox.remapped.tasks.Task;
+import io.github.shayf0x.spigotwarden.tasks.BuildTools;
+import io.github.shayf0x.spigotwarden.tasks.RemapJar;
+import io.github.shayf0x.spigotwarden.tasks.Setup;
+import io.github.shayf0x.spigotwarden.tasks.Task;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.plugins.JavaLibraryPlugin;
@@ -14,7 +15,7 @@ import java.nio.file.Path;
 
 
 /**
- * Main class of <strong>Remapped</strong>
+ * Main class of <strong>SpigotWarden</strong>
  * @version 1.0
  * @author ShayFox
  */
@@ -23,6 +24,7 @@ public class SpigotWarden implements Plugin<Project> {
     private SpigotWardenExtension extension;
     private final Manager manager;
     private TaskProvider<Jar> buildJar;
+    private TaskProvider<Setup> setup;
 
     public SpigotWarden() {
         this.manager = new Manager(this);
@@ -35,10 +37,15 @@ public class SpigotWarden implements Plugin<Project> {
 
         project.getPlugins().apply(JavaLibraryPlugin.class);
 
-        buildJar = project.getTasks().named(JavaPlugin.JAR_TASK_NAME, Jar.class);
-        buildJar.get().getDestinationDirectory().fileValue(extension.getBuildOutput().get());
+        setup = addTask("setup", "download all files necessary", Setup.class);
 
-        final TaskProvider<BuildTools> buildTools = addTask("buildTools", "Build spigot-remapped.jar to include in your dependencies", BuildTools.class);
+        buildJar = project.getTasks().named(JavaPlugin.JAR_TASK_NAME, Jar.class);
+        buildJar.configure(task -> {
+            task.mustRunAfter(setup);
+            task.getDestinationDirectory().fileValue(extension.getBuildOutput().get());
+        });
+
+        final TaskProvider<BuildTools> buildTools = addTask("buildTools", "Build BuildTools.jar to include in your dependencies", BuildTools.class);
         final TaskProvider<RemapJar> remapJar = addTask("remapJar", "Run this to create spigot readable jar from your plugin", RemapJar.class);
     }
 
@@ -86,5 +93,14 @@ public class SpigotWarden implements Plugin<Project> {
      */
     public TaskProvider<Jar> getBuildJar() {
         return buildJar;
+    }
+
+    /**
+     * get Setup gradle task class to test and download files necessary
+     * @return Setup class taskProvider
+     * @see Setup
+     */
+    public TaskProvider<Setup> getSetup() {
+        return setup;
     }
 }

@@ -1,4 +1,4 @@
-package fr.shayfox.remapped;
+package io.github.shayf0x.spigotwarden;
 
 import org.gradle.internal.jvm.Jvm;
 
@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * It's useful class with many useful methods for Remapped
+ * It's useful class with many useful methods for SpigotWarden
  * <br><strong>Methods:</strong>
  * <br>-{@link #createIfNotExistBuildOutput()}
  * <br>-{@link #testBuildTools(String)}
@@ -51,7 +51,7 @@ public class Manager {
     public String testSpecialSource(){
         final String latestVersion = getLatestVersion(SPECIAL_SOURCE);
         final String fileName = "SpecialSource-"+latestVersion+".jar";
-        final Path root = Path.of(System.getProperty("user.dir")).resolve(".gradle").resolve("remapped").resolve(fileName);
+        final Path root = Path.of(System.getProperty("user.dir")).resolve(".gradle").resolve("spigotwarden").resolve(fileName);
         if(!root.toFile().exists()){
             final URL url = resolve(resolve(newUrl(SPECIAL_SOURCE)), latestVersion, String.format("SpecialSource-%s-shaded.jar", latestVersion));
             install(url, root);
@@ -133,7 +133,7 @@ public class Manager {
      * @param version [<i>{@link String}</i>] - version of spigot (e.g: <i>1.19-R0.1-SNAPSHOT</i>).
      */
     public void cmdBuildTools(String version){
-        final Path root = Path.of(System.getProperty("user.dir")).resolve(".gradle").resolve("remapped").resolve("BuildTools");
+        final Path root = Path.of(System.getProperty("user.dir")).resolve(".gradle").resolve("spigotwarden").resolve("BuildTools");
         final URL url = newUrl("https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar");
         final Path buildTools = root.resolve("BuildTools.jar");
         final String versionSpigot = version.split("-")[0];
