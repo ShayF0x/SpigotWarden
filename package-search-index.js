@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"io.github.shayf0x.spigotwarden"},{"l":"io.github.shayf0x.spigotwarden.tasks"}];updateSearchResults();
