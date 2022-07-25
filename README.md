@@ -25,7 +25,7 @@ Since 1.17 spigot has started to "obfuscate" the nms classes so it is more compl
 To add it to your plugin you have to **use gradle** and add this line to your **build.gradle**
 ```gradle
 plugins {
-    id 'fr.shayfox.spigotwarden' version '1.0.0'
+    id "io.github.shayf0x.spigotwarden" version "1.0"
 }
 ```
 ⚠️*The version above is not necessarily latest*⚠️
